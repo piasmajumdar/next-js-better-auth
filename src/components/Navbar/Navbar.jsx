@@ -1,5 +1,5 @@
 "use client"
-import { useSession } from "@/lib/auth-client";
+import { signOut, useSession } from "@/lib/auth-client";
 import Link from "next/link";
 
 const Navbar = () => {
@@ -27,7 +27,7 @@ const Navbar = () => {
                         {
                             user ? <>
                                 <p>Welcome, {user.name}!</p>
-                                <button>SignOut</button>
+                                <button onClick={()=>signOut()}>SignOut</button>
                             </>
                                 : <Link href={'/auth/signin'}>Sign In</Link>
                         }
