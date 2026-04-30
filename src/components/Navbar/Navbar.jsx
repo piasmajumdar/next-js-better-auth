@@ -1,6 +1,16 @@
+"use client"
+import { useSession } from "@/lib/auth-client";
 import Link from "next/link";
 
 const Navbar = () => {
+    const { data, isPending } = useSession();
+    if (isPending) {
+        return <div>Loading...</div>
+    }
+    console.log("Session Data in Navbar: ", data);
+
+    const user = data?.user;
+
     return (
         <div>
             {/* Basic */}
@@ -13,6 +23,15 @@ const Navbar = () => {
                         <li><Link href="#">Features</Link></li>
                         <li><Link href="#">Pricing</Link></li>
                     </ul>
+                    <div>
+                        {
+                            user ? <>
+                                <p>Welcome, {user.name}!</p>
+                                <button>SignOut</button>
+                            </>
+                                : <Link href={'/auth/signin'}>Sign In</Link>
+                        }
+                    </div>
                 </header>
             </nav>
         </div>
